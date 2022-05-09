@@ -9,9 +9,20 @@ class Exporter {
 
 	function getPlayerStats($search) {
 		$sql = "
-			SELECT roster.name, player_totals.*
+			SELECT
+				roster.name,
+				player_totals.field_goals,
+				player_totals.field_goals_attempted,
+				player_totals.3pt,
+				player_totals.3pt_attempted,
+				player_totals.2pt,
+				player_totals.2pt_attempted,
+				player_totals.free_throws,
+				player_totals.free_throws_attempted,
+				player_totals.offensive_rebounds,
+				player_totals.defensive_rebounds
 			FROM player_totals
-				INNER JOIN roster ON (roster.id = player_totals.player_id)
+			INNER JOIN roster ON (roster.id = player_totals.player_id)
 			WHERE " . $this->conditions($search);
 		$data = query($sql) ?: [];
 
